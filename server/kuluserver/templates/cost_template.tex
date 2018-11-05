@@ -1,0 +1,65 @@
+\documentclass[a4paper,12pt]{article}
+
+
+\usepackage[finnish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{longtable}
+\usepackage{eurosym}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{pdfpages}
+
+\geometry{margin=2cm}
+\newcommand{\stdlohn}[0]{11 \euro}
+\setlength\parindent{0pt}
+
+%\renewcommand{\raggedsignature}{\raggedright}
+ \renewcommand{\familydefault}{\sfdefault}
+
+ \pagenumbering{gobble}
+\begin{document}
+
+\large{FYYSIKKOKILTA~RY~--~Kulukorvauslomake} \\
+
+  	Nimi: \VAR{name} \\
+  	IBAN: \VAR{iban} \\
+    Pvm:  \VAR{applied}  \\ \ \\
+  	Maksun peruste: \VAR{description} \\
+
+  \begin{tikzpicture}[remember picture, overlay]
+  \node[opacity=0.07,inner sep=0pt] at (current page.center)
+  {\includegraphics[width=0.8\paperwidth]{kuluserver/templates/fii_2.pdf}};
+  \end{tikzpicture}
+
+  %\opening{\ }
+
+  \begin{longtable}{p{9.5cm}p{1.5cm}p{2.5cm}}
+  	Kuvaus & Liite & Summa \\
+  	\hline
+    \hline
+    %% for i in range(explanations|length)
+  	 \VAR{explanations[i]['explanation']} & \VAR{i+1} & \VAR{explanations[i]['amount']} \euro{} \\
+     \hline
+    %% endfor
+    \hline
+
+    % Yhteensä & & \VAR{yhteensa} \euro{} \\
+
+  \end{longtable}
+
+  Hyväksytty raadin kokouksessa \VAR{kokous} \\
+  Maksettu päivämäärällä \VAR{maksupvm}
+
+
+  %\end{letter}
+
+  \newpage
+
+  %% for i in range(receipts|length)
+    \VAR{receipts[i]['id']} \VAR{receipts[i]['original_name']}
+  %% endfor
+
+\end{document}

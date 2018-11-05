@@ -1,0 +1,7 @@
+{
+  "python.pythonPath": "server/bin/python",
+  "editor.detectIndentation": false,
+  "editor.tabSize": 4,
+  "latex-workshop.chktex.enabled": false,
+  "latex-workshop.latex.autoBuild.onSave.enabled": false
+}
