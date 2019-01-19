@@ -1,59 +1,37 @@
-export async function getUser() {
-    return fetch('/api/users/me');
+import axios from 'axios';
+
+export function me() {
+  return axios.get('/api/users/me');
 }
 
-export async function login(email, password) {
-    return fetch('/api/users/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-    });
+export function login(email, password) {
+  return axios.post('/api/users/login', { email, password });
 }
 
-export async function register(email, password) {
-    return fetch('/api/users/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-    });
+export function register(email, password) {
+  return axios.post('/api/users/register', { email, password });
 }
 
-export async function getReimbursements(search = {}) {
-    return fetch(
-        `/api/reimbursements?${new URLSearchParams(search).toString()}`,
-    );
+export function getReimbursements(search = {}) {
+  return axios.get(
+    `/api/reimbursements?${new URLSearchParams(search).toString()}`,
+  );
 }
 
-export async function getPDF(uuid) {
-    return fetch(`/api/reimbursements/${uuid}/pdf`);
+export function getPDF(uuid) {
+  return axios.get(`/api/reimbursements/${uuid}/pdf`);
 }
 
-export async function getAllPDFs(search = {}) {
-    return fetch(
-        `/api/reimbursements/pdfs?${new URLSearchParams(search).toString()}`,
-    );
+export function getAllPDFs(search = {}) {
+  return axios.get(
+    `/api/reimbursements/pdfs?${new URLSearchParams(search).toString()}`,
+  );
 }
 
-export async function sendCostReimbursement(form) {
-    return fetch('/api/reimbursements/cost', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-    });
+export function sendCostReimbursement(form) {
+  return axios.post('/api/reimbursements/cost', form);
 }
 
-export async function sendTravelReimbursement(form) {
-    return fetch('/api/reimbursements/travel', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-    });
+export function sendTravelReimbursement(form) {
+  return axios.post('/api/reimbursements/travel', form);
 }

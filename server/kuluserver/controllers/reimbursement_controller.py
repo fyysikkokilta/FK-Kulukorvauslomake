@@ -38,7 +38,15 @@ class ReimbursementController(Controller):
                 'path': '/reimbursements/<reimbursement_type>',
                 'method': ['POST'],
                 'callback': self.create_reimbursement,
-            }
+            },
+            {
+                'path': '/reimbursements/<uuid>',
+                'method': ['PUT'],
+                'callback': self.edit_reimbursement,
+                'apply': [
+                    plugins.AuthorizationPlugin('user'),
+                ],
+            },
         ]
         self._reimbursement_service = reimbursement_service
         self._pdf_service = pdf_service
@@ -62,6 +70,9 @@ class ReimbursementController(Controller):
         return json.dumps(
             self._reimbursement_service.add(reimbursement_type, request.json)
         )
+
+    def edit_reimbursement(self, uuid):
+        return self._reimbursement_service.edit(uuid, request.json)
 
     def get_reimbursement_pdf(self, uuid):
         # return self._pdf_service.getPDF(uuid)

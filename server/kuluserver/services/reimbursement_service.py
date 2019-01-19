@@ -44,3 +44,10 @@ class ReimbursementService:
             'travel': TravelReimbursement.create,
             'cost': CostReimbursement.create,
         }[reimbursement_type](**json).dictify()
+
+    @orm.db_session
+    def edit(self, uuid, json):
+        r = Reimbursement.get(id=uuid)
+        r.edit(**json)
+
+        return r.dictify()
