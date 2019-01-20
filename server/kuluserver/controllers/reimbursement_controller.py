@@ -60,6 +60,8 @@ class ReimbursementController(Controller):
             'applied_before': request.query.get('applied_before'),
             'applied_after': request.query.get('applied_after'),
             'status': request.query.get('status'),
+            'page': request.query.get('page'),
+            'count': request.query.get('count'),
         }
         return json.dumps(self._reimbursement_service.getAll(**search_params))
 

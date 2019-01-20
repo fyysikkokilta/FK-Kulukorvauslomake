@@ -11,6 +11,15 @@ export default new Vuex.Store({
     loading: false,
     user: null,
     error: null,
+    reimbursements: {
+      data: [],
+      pages: 0,
+    },
+  },
+  getters: {
+    pages: state => {
+      return state.reimbursements.pages;
+    },
   },
   mutations: {
     SET_LOADING(state, status) {
@@ -21,6 +30,9 @@ export default new Vuex.Store({
     },
     SET_ERROR(state, error) {
       state.error = error;
+    },
+    SET_REIMBURSEMENTS(state, data) {
+      state.reimbursements = data;
     },
   },
   actions: {
@@ -46,19 +58,16 @@ export default new Vuex.Store({
       } catch (e) {
         if (!e.response) throw e;
 
-        let error;
-        switch (e.response.status) {
-          case 401: {
-            error = 'Tarksita sähköposti ja salasana.';
-            break;
-          }
-          default:
-            throw e;
-        }
-        commit('SET_ERROR', error);
+        if (e.response.status === 401) {
+          commit('SET_ERROR', 'Tarksita sähköposti ja salasana.');
+        } else throw e;
       } finally {
         commit('SET_LOADING', false);
       }
+    },
+    async fetchReimbursements({ commit }, search) {
+      const { data: reimbursements } = await api.getReimbursements(search);
+      commit('SET_REIMBURSEMENTS', reimbursements);
     },
     async sendCostReimbursement({ commit }, form) {
       commit('SET_LOADING', true);

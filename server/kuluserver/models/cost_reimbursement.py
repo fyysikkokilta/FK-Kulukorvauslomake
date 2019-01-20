@@ -8,8 +8,10 @@ from .reimbursement import Reimbursement
 FORBIDDEN_RECEIPTS_EXPLANATIONS = ['id', 'reimbursement']
 FORBIDDEN_REIMBURSEMENT = ['id', 'applied', 'status', 'processed']
 
+
 class CostReimbursement(Reimbursement):
     '''Class representing cost reimbursements'''
+
     receipts = orm.Set(Receipt)
 
     @staticmethod
@@ -26,9 +28,7 @@ class CostReimbursement(Reimbursement):
         c.explanations = [
             Explanation(**exp, reimbursement=c) for exp in explanations
         ]
-        c.receipts = [
-            Receipt.create(c, r) for r in receipts
-        ]
+        c.receipts = [Receipt.create(c, r) for r in receipts]
         return c
 
     def dictify(self):
@@ -45,4 +45,8 @@ class CostReimbursement(Reimbursement):
         ]
         reimbursement['status_text'] = self.status_text
         reimbursement['applied'] = reimbursement['applied'].isoformat()
+
+        reimbursement['amount'] = sum(
+            e['amount'] for e in reimbursement['explanations']
+        )
         return reimbursement

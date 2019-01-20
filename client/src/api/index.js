@@ -18,16 +18,6 @@ export function getReimbursements(search = {}) {
   );
 }
 
-export function getPDF(uuid) {
-  return axios.get(`/api/reimbursements/${uuid}/pdf`);
-}
-
-export function getAllPDFs(search = {}) {
-  return axios.get(
-    `/api/reimbursements/pdfs?${new URLSearchParams(search).toString()}`,
-  );
-}
-
 export function sendCostReimbursement(form) {
   return axios.post('/api/reimbursements/cost', form);
 }

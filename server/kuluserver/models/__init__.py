@@ -16,6 +16,6 @@ from .travel_reimbursement import TravelReimbursement
 if os.environ.get('KULU_ENV') == 'production':
     raise Exception
 else:
-    DB.bind(provider='sqlite', filename=':memory:')
+    DB.bind(provider='sqlite', filename='/tmp/kulu.sqlite')
 
 DB.generate_mapping(create_tables=True)

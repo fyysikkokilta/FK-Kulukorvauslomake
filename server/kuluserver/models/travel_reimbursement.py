@@ -37,4 +37,9 @@ class TravelReimbursement(Reimbursement):
         ]
         reimbursement['status_text'] = self.status_text
         reimbursement['applied'] = reimbursement['applied'].isoformat()
+
+        reimbursement['amount'] = sum(
+            e['amount'] for e in reimbursement['explanations']
+        )
+
         return reimbursement

@@ -1,16 +1,20 @@
 <template>
   <b-container id="app" fluid>
     <b-row>
-      <b-col col md="8" lg="6" offset-md="2" offset-lg="3">
+      <b-col col md="8" lg="8" offset-md="2" offset-lg="2">
         <b-jumbotron header="FK">
           <h1>Kulu- ja matkakorvaus</h1>
           <router-link v-if="!user" :to="{ path: '/login' }" class="float-right">Kirjaudu</router-link>
-          <router-link v-else :to="{ name: 'view' }" class="float-right">Arkistoon</router-link>
+          <div v-else class="float-right">
+            <router-link :to="{ name: 'view' }">Arkistoon</router-link>
+            &nbsp;&nbsp;
+            <router-link :to="{ name: 'home' }">Lomakkeeseen</router-link>
+          </div>
         </b-jumbotron>
       </b-col>
     </b-row>
     <b-row>
-      <b-col col md="8" lg="6" offset-md="2" offset-lg="3">
+      <b-col col md="8" lg="8" offset-md="2" offset-lg="2">
         <router-view/>
       </b-col>
     </b-row>

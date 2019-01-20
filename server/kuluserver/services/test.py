@@ -10,6 +10,7 @@ reimbursement_service = ReimbursementService()
 
 FAKE = faker.Faker('fi_FI')
 
+
 def gen():
     '''Generate test data'''
     user_service.register(email='swat@fk.fi', password='swat')
@@ -19,37 +20,60 @@ def gen():
         user = User.get(email='swat@fk.fi')
         user.groups = 'user admin'
 
-
     for _ in range(10):
-        reimbursement_service.add('travel', {
-            'name': FAKE.name(),
-            'iban': FAKE.iban(),
-            'description': FAKE.text(),
-            'explanations': [
-                { 'explanation': FAKE.text(max_nb_chars=50),  'amount': 30*random.random()},
-                { 'explanation': FAKE.text(max_nb_chars=50),  'amount': 30*random.random()},
-                { 'explanation': FAKE.text(max_nb_chars=50),  'amount': 30*random.random()},
-            ],
-        })
-        reimbursement_service.add('cost', {
-            'name': FAKE.name(),
-            'iban': FAKE.iban(),
-            'description': FAKE.text(),
-            'receipts': [
-                # { 'original_name': FAKE.word() },
-                # { 'original_name': FAKE.word() },
-            ],
-            'explanations': [
-                { 'explanation': FAKE.text(max_nb_chars=50),  'amount': 30*random.random()},
-                { 'explanation': FAKE.text(max_nb_chars=50),  'amount': 30*random.random()},
-                { 'explanation': FAKE.text(max_nb_chars=50),  'amount': 30*random.random()},
-            ],
-        })
+        reimbursement_service.add(
+            'travel',
+            {
+                'name': FAKE.name(),
+                'iban': FAKE.iban(),
+                'description': FAKE.text(),
+                'explanations': [
+                    {
+                        'explanation': FAKE.text(max_nb_chars=50),
+                        'amount': 30 * random.random(),
+                    },
+                    {
+                        'explanation': FAKE.text(max_nb_chars=50),
+                        'amount': 30 * random.random(),
+                    },
+                    {
+                        'explanation': FAKE.text(max_nb_chars=50),
+                        'amount': 30 * random.random(),
+                    },
+                ],
+            },
+        )
+        reimbursement_service.add(
+            'cost',
+            {
+                'name': FAKE.name(),
+                'iban': FAKE.iban(),
+                'description': FAKE.text(),
+                'receipts': [
+                    # { 'original_name': FAKE.word() },
+                    # { 'original_name': FAKE.word() },
+                ],
+                'explanations': [
+                    {
+                        'explanation': FAKE.text(max_nb_chars=50),
+                        'amount': 30 * random.random(),
+                    },
+                    {
+                        'explanation': FAKE.text(max_nb_chars=50),
+                        'amount': 30 * random.random(),
+                    },
+                    {
+                        'explanation': FAKE.text(max_nb_chars=50),
+                        'amount': 30 * random.random(),
+                    },
+                ],
+            },
+        )
 
 
 def verify():
     '''Verify test data'''
     print('Count of Users:', len(user_service.getAll()))
-    print('Count of Reimbursements',
-        len(reimbursement_service.getAll('travel')) + len(reimbursement_service.getAll('cost'))
+    print(
+        'Count of Reimbursements', len(reimbursement_service.getAll()['data'])
     )

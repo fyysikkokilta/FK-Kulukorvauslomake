@@ -6,5 +6,5 @@ import os
 
 if not os.environ.get('KULU_ENV') == 'production':
     from .test import verify, gen
-    gen()
+    # gen()
     verify()

@@ -42,7 +42,7 @@ class PDFService:
         r_esc['applied'] = applied.strftime('%d.%m.%Y')
 
         dest = '{}-{}'.format(
-            r_esc['name'].replace(' ', '_'), applied.strftime('%d-%m-%Y'))
+            applied.strftime('%Y-%m-%d'), r_esc['name'].replace(' ', '_'))
         return render_tex('cost_template.tex', dest, r_esc)
 
     def __render_travel_reimbursement(self, reimbursement):
@@ -51,5 +51,5 @@ class PDFService:
         r_esc['applied'] = applied.strftime('%d.%m.%Y')
 
         dest = '{}-{}'.format(
-            r_esc['name'].replace(' ', '_'), applied.strftime('%d-%m-%Y'))
+            applied.strftime('%Y-%m-%d'), r_esc['name'].replace(' ', '_'))
         return render_tex('travel_template.tex', dest, r_esc)
