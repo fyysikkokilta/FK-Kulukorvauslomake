@@ -1,13 +1,10 @@
 <template>
   <div>
-    <ReimbursementModal
-      :reimbursement="reimbursement"
-      @closed="modalClosed"
-    />
-    <table class="table table-striped">
+    <ReimbursementModal :reimbursement="reimbursement" @closed="modalClosed"/>
+    <table class="table table-striped" v-if="reimbursements.data.length">
       <thead>
         <tr>
-          <th scope="col">Haettu</th>
+          <th scope="col">Lähetetty</th>
           <th scope="col">Lähettäjä</th>
           <th scope="col">Tyyppi</th>
           <th scope="col">Tila</th>
@@ -32,16 +29,29 @@
             <Status class="icon-container" :status="r.status"/>
           </td>
           <td class="buttons">
-            <a class="btn btn-primary" :href="`/api/reimbursements/${r.id}/pdf`">
-              <fa-icon icon="file-pdf" size="lg"/>
-            </a>
             <b-button @click="show(r)">
               <fa-icon icon="search-plus" size="lg"/>
             </b-button>
+            <a
+              class="btn btn-primary"
+              target="_blank"
+              :href="`/api/reimbursements/${r.id}/preview`"
+            >
+              <fa-icon icon="file-pdf" size="lg"/>
+            </a>
+            <a class="btn btn-primary" :href="`/api/reimbursements/${r.id}/pdf`">
+              <fa-icon icon="download" size="lg"/>
+            </a>
           </td>
         </tr>
       </tbody>
     </table>
+    <b-alert variant="danger" show v-else>
+      <h4 class="alert-heading">Hmm.</h4>
+      <p>Täällä ei ole mitään nähtävää. Kokeile muita hakuehtoja.</p>
+      <hr>
+      <p class="mb-0">Pävän lörinät.</p>
+    </b-alert>
   </div>
 </template>
 <script>
@@ -63,7 +73,7 @@ export default {
     },
     modalClosed() {
       this.reimbursement = null;
-    }
+    },
   },
 };
 </script>

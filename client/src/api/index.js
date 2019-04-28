@@ -25,3 +25,7 @@ export function sendCostReimbursement(form) {
 export function sendTravelReimbursement(form) {
   return axios.post('/api/reimbursements/travel', form);
 }
+
+export function updateReimbursement(uuid, data) {
+  return axios.put(`/api/reimbursements/${uuid}`, data);
+}

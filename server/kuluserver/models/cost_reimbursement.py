@@ -13,6 +13,7 @@ class CostReimbursement(Reimbursement):
     '''Class representing cost reimbursements'''
 
     receipts = orm.Set(Receipt)
+    explanations = orm.Set(Explanation)
 
     @staticmethod
     def create(explanations, receipts, **reimbursement):

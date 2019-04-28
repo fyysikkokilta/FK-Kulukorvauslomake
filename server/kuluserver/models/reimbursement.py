@@ -5,10 +5,10 @@ from datetime import date
 
 from . import DB, Explanation
 
-STATUS_PAID = 1
+STATUS_PENDING = 1
 STATUS_OK = 2
 STATUS_NOK = 3
-STATUS_PENDING = 4
+STATUS_PAID = 4
 
 
 class Reimbursement(DB.Entity):
@@ -16,22 +16,21 @@ class Reimbursement(DB.Entity):
     name = orm.Required(str)
     iban = orm.Required(str)
     description = orm.Required(str)
-    explanations = orm.Set(Explanation)
     applied = orm.Required(date, default=date.today)
-    status = orm.Required(int, default=4)
+    status = orm.Required(int, default=STATUS_PENDING)
     processed = orm.Optional(str)
     hidden = orm.Required(bool, default=False)
 
-    def edit(self, status=None, processed=None, hidden=None):
+    def edit(self, status=None, processed=None, hidden=None, **kw):
         if (status is None or processed is None) and hidden is None:
             abort(400, 'Invalid arguments.')
 
         if not status is None and not processed is None:
             if status not in [
-                STATUS_PAID,
-                STATUS_OK,
-                STATUS_NOK,
-                STATUS_PENDING,
+                    STATUS_PAID,
+                    STATUS_OK,
+                    STATUS_NOK,
+                    STATUS_PENDING,
             ]:
                 abort(400, 'Invalid status value.')
             self.status = status

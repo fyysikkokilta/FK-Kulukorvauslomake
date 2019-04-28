@@ -20,14 +20,15 @@ class ReimbursementService:
 
     @orm.db_session
     def getAll(
-        self,
-        reimbursement_type='all',
-        name=None,
-        applied_after=None,
-        applied_before=None,
-        status=None,
-        page=0,
-        count=None,
+            self,
+            reimbursement_type='all',
+            name=None,
+            applied_after=None,
+            applied_before=None,
+            status=None,
+            hidden=False,
+            page=0,
+            count=None,
     ):
         if reimbursement_type == 'all':
             query = orm.select(r for r in Reimbursement)
@@ -37,6 +38,9 @@ class ReimbursementService:
                 'cost': lambda: orm.select(r for r in CostReimbursement),
             }[reimbursement_type]()
 
+        hidden = hidden == 'true'
+
+        query = query.filter(lambda r: r.hidden == bool(hidden))
         query = query.order_by(Reimbursement.applied, Reimbursement.name)
 
         if name:
@@ -54,7 +58,7 @@ class ReimbursementService:
 
         total = query.count()
         if count is not None:
-            query = query.page(int(page)+1, int(count))
+            query = query.page(int(page) + 1, int(count))
 
         return {
             'pages': ceil(total / int(count)) if count else 1,

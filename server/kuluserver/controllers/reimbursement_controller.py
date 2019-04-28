@@ -28,6 +28,13 @@ class ReimbursementController(Controller):
                 ],
             },
             {
+                'path': '/reimbursements/<uuid>/preview',
+                'callback': self.preview_reimbursement_pdf,
+                'apply': [
+                    plugins.AuthorizationPlugin('user'),
+                ],
+            },
+            {
                 'path': '/reimbursements/<uuid>/pdf',
                 'callback': self.get_reimbursement_pdf,
                 'apply': [
@@ -62,6 +69,7 @@ class ReimbursementController(Controller):
             'status': request.query.get('status'),
             'page': request.query.get('page'),
             'count': request.query.get('count'),
+            'hidden': request.query.get('hidden'),
         }
         return json.dumps(self._reimbursement_service.getAll(**search_params))
 
@@ -81,6 +89,10 @@ class ReimbursementController(Controller):
         fn = self._pdf_service.getPDF(uuid)
         return static_file(fn, root='rendered', download=fn)
 
+    def preview_reimbursement_pdf(self, uuid):
+        fn = self._pdf_service.getPDF(uuid)
+        return static_file(fn, root='rendered')
+
     def get_reimbursement_pdfs(self):
         search_params = {
             'name': request.query.get('name'),
@@ -88,6 +100,7 @@ class ReimbursementController(Controller):
             'applied_before': request.query.get('applied_before'),
             'applied_after': request.query.get('applied_after'),
             'status': request.query.get('status'),
+            'hidden': request.query.get('hidden'),
         }
         fn = self._pdf_service.getAllPdfs(search_params)
         return static_file(fn, root='rendered', download=fn)

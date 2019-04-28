@@ -12,21 +12,27 @@ import './assets/styles.scss';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faCar,
-  faCreditCard,
   faMoneyBillWaveAlt,
   faHourglassHalf,
   faFilePdf,
   faSearchPlus,
+  faFileInvoiceDollar,
+  faThumbsUp,
+  faThumbsDown,
+  faDownload,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(
   faCar,
-  faCreditCard,
+  faFileInvoiceDollar,
   faMoneyBillWaveAlt,
   faHourglassHalf,
   faFilePdf,
   faSearchPlus,
+  faDownload,
+  faThumbsDown,
+  faThumbsUp,
 );
 Vue.component('fa-icon', FontAwesomeIcon);
 

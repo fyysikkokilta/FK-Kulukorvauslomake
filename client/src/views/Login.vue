@@ -1,8 +1,7 @@
 <template>
   <b-modal
     ref="modal"
-    @hide="close"
-    @cancel="close"
+    @hidden="closed"
     @ok="submit"
     :ok-disabled="!valid"
     ok-title="Kirjaudu!"
@@ -12,7 +11,7 @@
     <template slot="modal-header">
       <h3>Kirjaudu sisään</h3>
     </template>
-    <b-alert variant="danger" :show="!!error">{{ error }}</b-alert>
+    <b-alert class="login-alert" variant="danger" show v-if="!!error">{{ error }}</b-alert>
     <form @submit.stop.prevent="submit">
       <b-row>
         <b-col col cols="3" md="4">
@@ -41,7 +40,7 @@
   </b-modal>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 export default {
   data() {
     return {
@@ -71,12 +70,10 @@ export default {
   },
   methods: {
     ...mapActions(['login']),
-    close(ev) {
-      // TODO use modals hidden event
-      // Don't close after failed submit
-      if (ev.defaultPrevented) return;
-      // Hmm, wait for animation
-      setTimeout(() => this.$router.push('/'), 500);
+    ...mapMutations(['CLEAR_ERROR']),
+    closed() {
+      this.CLEAR_ERROR();
+      this.$router.push('/');
     },
     submit(ev) {
       // ev is native event when called from button
@@ -89,3 +86,44 @@ export default {
   },
 };
 </script>
+<style scoped>
+.login-alert {
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+</style>

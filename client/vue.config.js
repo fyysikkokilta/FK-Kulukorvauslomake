@@ -1,21 +1,14 @@
 module.exports = {
-    lintOnSave: false,
+  lintOnSave: false,
 
-    devServer: {
-        proxy: {
-            '/api': {
-                target: 'http://localhost:8000',
-                pathRewrite: {
-                    '^/api': '',
-                },
-            },
-        },
-    },
+  devServer: {
+    disableHostCheck: true,
+  },
 
-    pluginOptions: {
-        'style-resources-loader': {
-            preProcessor: 'scss',
-            patterns: [],
-        },
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'scss',
+      patterns: [],
     },
+  },
 };

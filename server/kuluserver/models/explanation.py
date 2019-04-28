@@ -7,4 +7,4 @@ class Explanation(DB.Entity):
     id = orm.PrimaryKey(str, default=lambda: str(uuid4()))
     explanation = orm.Required(str)
     amount = orm.Required(float)
-    reimbursement = orm.Required('Reimbursement')
+    reimbursement = orm.Required('CostReimbursement')

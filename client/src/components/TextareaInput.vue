@@ -1,13 +1,13 @@
 <template>
-  <b-row>
+  <b-row style="margin-top: 5px;">
     <b-col col cols="3" md="4">
-      <label for="description-input">Kuvaus</label>
+      <label for="route-input">{{ header }}</label>
     </b-col>
     <b-col col cols="9" md="8">
       <b-form-textarea
-        id="description-input"
+        id="route-input"
         type="text"
-        rows="4"
+        :rows="rows"
         :value="value"
         required
         @input="input"
@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-  props: ['value'],
+  props: ['value', 'header', 'rows'],
   methods: {
     input(value) {
       this.$emit('input', value);

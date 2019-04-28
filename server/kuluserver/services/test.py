@@ -27,20 +27,10 @@ def gen():
                 'name': FAKE.name(),
                 'iban': FAKE.iban(),
                 'description': FAKE.text(),
-                'explanations': [
-                    {
-                        'explanation': FAKE.text(max_nb_chars=50),
-                        'amount': 30 * random.random(),
-                    },
-                    {
-                        'explanation': FAKE.text(max_nb_chars=50),
-                        'amount': 30 * random.random(),
-                    },
-                    {
-                        'explanation': FAKE.text(max_nb_chars=50),
-                        'amount': 30 * random.random(),
-                    },
-                ],
+                'licenseNumber': FAKE.license_plate(),
+                'passengers': f'{FAKE.name()}, {FAKE.name()}, {FAKE.name()}',
+                'route': f'{FAKE.city()} - {FAKE.city()} - {FAKE.city()}',
+                'distance': 40 * random.random(),
             },
         )
         reimbursement_service.add(

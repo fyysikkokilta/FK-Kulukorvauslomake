@@ -3,9 +3,11 @@
     <br>
     <NameInput v-model="form.name"/>
     <IbanInput v-model="form.iban"/>
-    <DescriptionInput v-model="form.description"/>
-    <hr>
-    <ExplanationsInput v-model="form.explanations"/>
+    <TextareaInput header="Matkan tarkoitus" rows="4" v-model="form.description"/>
+    <TextareaInput header="Reitti" rows="2" v-model="form.route"/>
+    <TextareaInput header="Kyydissä olleet" rows="2" v-model="form.passengers"/>
+    <LicensePlateInput v-model="form.licenseNumber"/>
+    <DistanceInput v-model="form.distance"/>
     <hr>
     <SubmitButton @submit="submit"/>
   </b-form>
@@ -13,17 +15,20 @@
 <script>
 import NameInput from '@/components/NameInput.vue';
 import IbanInput from '@/components/IbanInput.vue';
-import DescriptionInput from '@/components/DescriptionInput.vue';
-import ExplanationsInput from '@/components/ExplanationsInput.vue';
+import TextareaInput from '@/components/TextareaInput.vue';
 import SubmitButton from '@/components/SubmitButton.vue';
+import LicensePlateInput from '@/components/LicensePlateInput.vue';
+import DistanceInput from '@/components/DistanceInput.vue';
+import { mapActions } from 'vuex';
 
 export default {
   components: {
     NameInput,
     IbanInput,
-    DescriptionInput,
-    ExplanationsInput,
+    TextareaInput,
     SubmitButton,
+    LicensePlateInput,
+    DistanceInput,
   },
   data() {
     return {
@@ -31,14 +36,23 @@ export default {
         name: '',
         iban: '',
         description: '',
-        explanations: [],
+        route: '',
+        passengers: '',
+        distance: 0,
+        licenseNumber: '',
       },
     };
   },
   methods: {
+    ...mapActions(['sendTravelReimbursement']),
     submit() {
-      console.log(this.$refs);
-      console.log({ ...this.form });
+      const desc = this.form.description.toLowerCase();
+      if (desc === 'do a barrel roll') {
+        this.form.description = 'no u';
+
+        return;
+      }
+      this.sendTravelReimbursement(this.form);
     },
   },
 };

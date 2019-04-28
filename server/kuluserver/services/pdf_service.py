@@ -13,7 +13,7 @@ class PDFService:
         return self.__render_pdf(reimbursement)
 
     def getAllPdfs(self, search_params):
-        reimbursements = self._reimbursement_service.getAll(**search_params)
+        reimbursements = self._reimbursement_service.getAll(**search_params)['data']
 
         if not reimbursements:
             abort(404, 'No reimbursements found.')

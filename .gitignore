@@ -6,3 +6,5 @@
 
 server/receipts/*
 server/rendered/*
+
+environ
