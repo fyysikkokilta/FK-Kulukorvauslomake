@@ -1,0 +1,14 @@
+FROM node:10-alpine AS builder
+
+WORKDIR /opt/kuluclient
+COPY client .
+RUN rm -rf node_modules
+RUN npm i && npm run build
+
+FROM nginx:alpine
+
+WORKDIR /var/www
+COPY --from=builder /opt/kuluclient/dist/* fk-kulu-beta.tahokas.dy.fi/dist/
+COPY --from=builder /opt/kuluclient/public/* fk-kulu-beta.tahokas.dy.fi/public/
+
+COPY build/server.conf /etc/nginx/conf.d

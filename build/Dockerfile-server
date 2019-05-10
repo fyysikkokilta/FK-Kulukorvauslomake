@@ -1,0 +1,16 @@
+FROM python:3.7-alpine
+
+ENV PYTHONUNBUFFERED=true
+ENV PYTHONIOENCODING=utf-8
+ENV PG_USER=$PG_USER
+ENV PG_PASSWORD=$PG_PASSWORD
+ENV PG_HOST=$PG_HOST
+
+WORKDIR /opt/kuluserver
+COPY server .
+
+RUN apk add py3-pip gcc postgresql-dev musl-dev libffi-dev libressl-dev && \
+    pip3 install -r requirements.txt
+
+CMD python3 -m kuluserver
+

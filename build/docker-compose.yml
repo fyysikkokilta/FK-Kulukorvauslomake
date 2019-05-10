@@ -1,0 +1,48 @@
+version: '3'
+services:
+  kulu-ingress:
+    restart: always 
+    container_name: fk-kulu-ingress
+    build: 
+      context: .
+      dockerfile: Dockerfile-client
+    depends_on:
+      - kulu-server
+      - kulu-client
+    links:
+      - kulu-server
+      - kulu-client
+    ports:
+      - "8080:80"
+    volumes:
+      - ./rev-proxy/conf:/etc/nginx/conf.d
+  kulu-server:
+    restart: unless-stopped
+    container_name: kulu-server
+    build: ./server
+    depends_on:
+      - kulu-database
+    links:
+      - "kulu-database"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/opt/kuluserver
+    environment:
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DATABASE: ${PG_DATABASE}
+      PG_HOST: kulu-database
+      DEBUG: 1
+      #kulu-database:
+      #  container_name: kulu-database
+      #  image: postgres:alpine
+      #  restart: unless-stopped
+      #  ports:
+      #    - "5432:5432"
+      #  environment:
+      #    POSTGRES_DB: ${PG_DATABASE}
+      #    POSTGRES_USER: ${PG_USER}
+      #    POSTGRES_PASSWORD: ${PG_PASSWORD}
+
+
