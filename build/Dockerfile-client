@@ -1,9 +1,9 @@
-FROM node:latest AS builder
+FROM node:10-alpine AS builder
 
 WORKDIR /opt/kuluclient
 COPY client .
 RUN rm -rf node_modules
-RUN npm i 
+RUN npm i 2>&1
 RUN npm run build
 
 FROM nginx:alpine
