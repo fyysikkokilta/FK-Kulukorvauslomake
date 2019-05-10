@@ -1,8 +1,6 @@
-FROM node:8-alpine
+FROM node:10-alpine
 
 WORKDIR /opt/kuluclient
-COPY . .
-
-RUN apk add npm
+CMD npm i 
 
 CMD npm i && npm run serve

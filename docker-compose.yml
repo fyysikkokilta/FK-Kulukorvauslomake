@@ -52,6 +52,6 @@ services:
       - "8081:8080"
     volumes:
       - ./client:/opt/kuluclient
-      - /opt/kuluclient(node_modules
+      - /opt/kuluclient/node_modules
 
 
