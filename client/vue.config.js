@@ -11,4 +11,7 @@ module.exports = {
       patterns: [],
     },
   },
+  chainWebpack: (config) => {
+    config.resolve.symlinks(false)
+  },
 };
