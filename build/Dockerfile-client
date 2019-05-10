@@ -3,7 +3,7 @@ FROM node:10.15.1 AS builder
 WORKDIR /opt/kuluclient
 COPY client .
 RUN rm -rf node_modules
-RUN npm i 2>&1
+RUN npm i --unsafe-perm
 RUN npm run build
 
 FROM nginx:alpine
