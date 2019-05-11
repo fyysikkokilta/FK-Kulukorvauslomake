@@ -30,7 +30,8 @@ print('Done.')
 
 if __name__ == '__main__':
     print('Starting server...')
-    bottle.run(debug=bool(os.environ['DEBUG']),
-               host='localhost' if bool(os.environ['DEBUG']) else '0.0.0.0',
+    debug = os.environ['DEBUG'] == 'on'
+    bottle.run(debug=debug,
+               host='localhost' if debug else '0.0.0.0',
                port=8000,
                server='twisted')
