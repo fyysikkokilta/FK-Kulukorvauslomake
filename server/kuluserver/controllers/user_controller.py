@@ -22,6 +22,9 @@ class UserController(Controller):
                 'path': '/users/register',
                 'method': ['POST'],
                 'callback': self.register,
+                'apply': [
+                    plugins.AuthorizationPlugin('admin'),
+                ],
             },
             {
                 'path': '/users/me',
