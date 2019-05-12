@@ -24,6 +24,9 @@ export default {
       error: '',
     };
   },
+  created() {
+    this.input(this.iban);
+  },
   methods: {
     input(value) {
       this.$emit('input', value);

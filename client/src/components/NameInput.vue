@@ -21,6 +21,9 @@ export default {
   data() {
     return { name: localStorage.name };
   },
+  created() {
+    this.input(this.name);
+  },
   methods: {
     input(value) {
       this.$emit('input', value);

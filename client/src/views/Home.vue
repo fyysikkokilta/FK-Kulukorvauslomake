@@ -2,10 +2,10 @@
   <div>
     <router-view />
     <b-tabs>
-      <b-tab title="Kulukorvauslomake" active>
+      <b-tab title="Kulukorvaus" active>
         <CostForm/>
       </b-tab>
-      <b-tab title="Matkakorvauslomake">
+      <b-tab title="Matkakorvaus">
         <TravelForm/>
       </b-tab>
     </b-tabs>

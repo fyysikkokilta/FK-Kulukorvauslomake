@@ -5,9 +5,9 @@
     <IbanInput v-model="form.iban"/>
     <TextareaInput header="Kuvaus" rows="4" v-model="form.description" @input="egg"/>
     <hr>
-    <ExplanationsInput ref="explanations" v-model="form.explanations"/>
+    <ExplanationsInput v-model="form.explanations"/>
     <hr>
-    <ReceiptsInput ref="receipts" v-model="form.receipts"/>
+    <ReceiptsInput v-model="form.receipts"/>
     <hr>
     <SubmitButton @submit="submit" />
   </b-form>
