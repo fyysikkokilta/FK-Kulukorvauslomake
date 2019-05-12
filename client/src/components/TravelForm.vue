@@ -45,6 +45,13 @@ export default {
   },
   methods: {
     ...mapActions(['sendTravelReimbursement']),
+    reset() {
+      this.form.description = '';
+      this.form.route = '';
+      this.form.passengers = '';
+      this.form.distance = 0;
+      this.form.licenseNumber = '';
+    },
     submit() {
       const desc = this.form.description.toLowerCase();
       if (desc === 'do a barrel roll') {
@@ -52,7 +59,7 @@ export default {
 
         return;
       }
-      this.sendTravelReimbursement(this.form);
+      this.sendTravelReimbursement({ form: this.form, reset: this.reset });
     },
   },
 };

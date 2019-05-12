@@ -18,6 +18,8 @@ export default new Vuex.Store({
       data: [],
       pages: 0,
     },
+    errorCb: () => {},
+    successCb: () => {},
   },
   getters: {
     pages: state => {
@@ -25,6 +27,10 @@ export default new Vuex.Store({
     },
   },
   mutations: {
+    setCallbacks(state, { success, error }) {
+      state.successCb = success;
+      state.errorCb = error;
+    },
     SET_LOADING(state, status) {
       state.loading = status;
     },
@@ -87,7 +93,7 @@ export default new Vuex.Store({
         commit('SET_LOADING', false);
       }
     },
-    async sendCostReimbursement({ commit }, form) {
+    async sendCostReimbursement({ commit, state }, { form, reset }) {
       commit('SET_LOADING', true);
 
       // There is probably some library that simplifies this
@@ -119,14 +125,29 @@ export default new Vuex.Store({
         explanations,
       };
 
-      await api.sendCostReimbursement(transformedForm);
-
-      commit('SET_LOADING', false);
+      try {
+        await api.sendCostReimbursement(transformedForm);
+        state.successCb();
+        reset();
+      } catch (e) {
+        console.error(e);
+        state.errorCb();
+      } finally {
+        commit('SET_LOADING', false);
+      }
     },
-    async sendTravelReimbursement({ commit }, form) {
+    async sendTravelReimbursement({ commit, state }, { form, reset }) {
       commit('SET_LOADING', true);
-      await api.sendTravelReimbursement(form);
-      commit('SET_LOADING', false);
+      try {
+        await api.sendTravelReimbursement(form);
+        state.successCb();
+        reset();
+      } catch (e) {
+        console.error(e);
+        state.errorCb();
+      } finally {
+        commit('SET_LOADING', false);
+      }
     },
     async updateReimbursement({ commit, dispatch }, { id, ...data }) {
       commit('SET_LOADING', true);

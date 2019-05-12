@@ -9,11 +9,11 @@
     <hr>
     <ReceiptsInput v-model="form.receipts"/>
     <hr>
-    <SubmitButton @submit="submit"/>
+    <SubmitButton @submit="submit" />
   </b-form>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 import NameInput from '@/components/NameInput.vue';
 import IbanInput from '@/components/IbanInput.vue';
@@ -51,6 +51,11 @@ export default {
         body.style.background = 'black';
       }
     },
+    reset() {
+      this.form.description = '';
+      this.form.explanations = [];
+      this.form.receipts = [];
+    },
     submit() {
       const desc = this.form.description.toLowerCase();
       if (desc === 'do a barrel roll') {
@@ -64,7 +69,7 @@ export default {
         return;
       }
 
-      this.sendCostReimbursement(this.form);
+      this.sendCostReimbursement({ form: this.form, reset: this.reset });
     },
   },
 };

@@ -32,6 +32,7 @@ if __name__ == '__main__':
     print('Starting server...')
     debug = os.environ['DEBUG'] == 'on'
     bottle.run(debug=debug,
-               host='localhost' if debug else '0.0.0.0',
+               reloader=debug,
+               host=os.environ['KULU_HOST'],
                port=8000,
                server='twisted')

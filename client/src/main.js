@@ -20,6 +20,7 @@ import {
   faThumbsUp,
   faThumbsDown,
   faDownload,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -33,6 +34,7 @@ library.add(
   faDownload,
   faThumbsDown,
   faThumbsUp,
+  faSpinner,
 );
 Vue.component('fa-icon', FontAwesomeIcon);
 
