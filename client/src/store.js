@@ -128,7 +128,7 @@ export default new Vuex.Store({
       try {
         await api.sendCostReimbursement(transformedForm);
         state.successCb();
-        reset();
+        //reset();
       } catch (e) {
         console.error(e);
         state.errorCb();
@@ -141,7 +141,7 @@ export default new Vuex.Store({
       try {
         await api.sendTravelReimbursement(form);
         state.successCb();
-        reset();
+        //reset();
       } catch (e) {
         console.error(e);
         state.errorCb();

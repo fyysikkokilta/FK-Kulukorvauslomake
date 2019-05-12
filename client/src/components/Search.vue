@@ -19,7 +19,10 @@
         <b-button class="full" variant="success" @click="search">Hae!</b-button>
       </b-row>
       <b-row>
-        <a class="btn btn-primary full" :href="downloadURL">Lataa PDF:t!</a>
+        <a class="btn btn-primary full" :href="downloadURL" :disabled="loading">
+          Lataa PDF:t!&nbsp;
+          <fa-icon icon="spinner" spin v-show="loading"/>
+        </a>
       </b-row>
       <b-row>
         <b-button @click="prev" class="col-4">&lt;</b-button>
@@ -32,7 +35,7 @@
   </b-row>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions, mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -68,6 +71,7 @@ export default {
     this.search();
   },
   computed: {
+    ...mapState(['loading']),
     ...mapGetters(['pages']),
     downloadURL() {
       return `/api/reimbursements/pdfs?${new URLSearchParams(

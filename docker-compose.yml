@@ -30,6 +30,7 @@ services:
       PG_USER: ${PG_USER}
       PG_PASSWORD: ${PG_PASSWORD}
       PG_DATABASE: ${PG_DATABASE}
+      KULU_HOST: ${KULU_HOST}
       PG_HOST: kulu-database
       DEBUG: 1
   kulu-database:
@@ -46,12 +47,10 @@ services:
     restart: unless-stopped
     container_name: kulu-client
     build: ./client
-    links: 
+    links:
       - kulu-server
     ports:
       - "8081:8080"
     volumes:
       - ./client:/opt/kuluclient
       - /opt/kuluclient/node_modules
-
-

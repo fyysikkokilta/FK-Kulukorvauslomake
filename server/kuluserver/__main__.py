@@ -33,6 +33,6 @@ if __name__ == '__main__':
     debug = os.environ['DEBUG'] == 'on'
     bottle.run(debug=debug,
                reloader=debug,
-               host=os.environ['KULU_HOST'],
+               host='0.0.0.0',
                port=8000,
                server='twisted')
