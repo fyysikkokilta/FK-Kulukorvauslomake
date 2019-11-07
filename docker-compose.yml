@@ -32,10 +32,10 @@ services:
       PG_DATABASE: ${PG_DATABASE}
       KULU_HOST: ${KULU_HOST}
       PG_HOST: kulu-database
-      DEBUG: 1
+      DEBUG: 'on'
   kulu-database:
     container_name: kulu-database
-    image: postgres:alpine
+    image: postgres:12-alpine
     restart: unless-stopped
     ports:
       - "5432:5432"

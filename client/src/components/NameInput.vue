@@ -19,7 +19,7 @@
 export default {
   props: ['value'],
   data() {
-    return { name: localStorage.name };
+    return { name: localStorage.name || '' };
   },
   created() {
     this.input(this.name);

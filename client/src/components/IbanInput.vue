@@ -20,7 +20,7 @@ export default {
   props: ['value'],
   data() {
     return {
-      iban: localStorage.iban,
+      iban: localStorage.iban || '',
       error: '',
     };
   },

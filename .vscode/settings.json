@@ -1,5 +1,5 @@
 {
-  "python.pythonPath": "server/bin/python",
+  "python.pythonPath": "/usr/sbin/python",
   "editor.detectIndentation": false,
   "editor.tabSize": 4,
   "latex-workshop.chktex.enabled": false,
@@ -15,5 +15,6 @@
   "[css]": {
     "editor.insertSpaces": true,
     "editor.tabSize": 2
-  },
+},
+"python.formatting.provider": "autopep8",
 }

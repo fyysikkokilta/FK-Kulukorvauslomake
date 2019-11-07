@@ -109,11 +109,15 @@ export default {
     next(ev) {
       ev.preventDefault();
       this.params.page = Math.min(this.pages - 1, this.params.page + 1);
+
+      this.search();
     },
     prev(ev) {
       ev.preventDefault();
       this.params.page = Math.min(this.pages - 1, this.params.page);
       this.params.page = Math.max(0, this.params.page - 1);
+
+      this.search();
     },
   },
 };
