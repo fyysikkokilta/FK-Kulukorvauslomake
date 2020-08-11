@@ -72,7 +72,7 @@ export default new Vuex.Store({
         if (!e.response) throw e;
 
         if (e.response.status === 401) {
-          commit('SET_ERROR', 'Tarksita sähköposti ja salasana.');
+          commit('SET_ERROR', 'Tarkista sähköposti ja salasana.');
         } else throw e;
       } finally {
         commit('SET_LOADING', false);
