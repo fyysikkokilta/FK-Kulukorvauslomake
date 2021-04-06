@@ -5,9 +5,10 @@ ENV PYTHONPATH=/opt/kuluserver
 ENV PYTHONIOENCODING=utf-8
 
 WORKDIR /opt/kuluserver
-COPY . .
+COPY requirements.txt .
 
 RUN apk add py3-pip gcc postgresql-dev musl-dev libffi-dev libressl-dev texlive && \
     pip3 install -r requirements.txt
+COPY . .
 
 CMD python3 -m kuluserver
