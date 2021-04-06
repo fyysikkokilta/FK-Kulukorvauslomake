@@ -2,7 +2,7 @@
 from pony.orm import db_session, select
 import faker
 import random
-from kuluserver.models import User
+from kuluserver.models import Users
 from . import UserService, ReimbursementService
 
 user_service = UserService()
