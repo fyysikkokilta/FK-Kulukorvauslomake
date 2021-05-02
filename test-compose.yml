@@ -1,0 +1,56 @@
+version: '3'
+services:
+  kulu-rev-proxy:
+    restart: unless-stopped
+    container_name: kulu-rev-proxy
+    build: ./rev-proxy
+    depends_on:
+      - kulu-server
+      - kulu-client
+    links:
+      - kulu-server
+      - kulu-client
+    ports:
+      - "8080:80"
+    volumes:
+      - ./rev-proxy/conf:/etc/nginx/conf.d
+  kulu-server:
+    command: python3 -m kuluserver test
+    container_name: kulu-server
+    build: ./server
+    depends_on:
+      - kulu-database
+    links:
+      - "kulu-database"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/opt/kuluserver
+    environment:
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DATABASE: ${PG_DATABASE}
+      KULU_HOST: ${KULU_HOST}
+      PG_HOST: kulu-database
+      DEBUG: 'on'
+  kulu-database:
+    container_name: kulu-database
+    image: postgres:12-alpine
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${PG_DATABASE}
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+  kulu-client:
+    restart: unless-stopped
+    container_name: kulu-client
+    build: ./client
+    links:
+      - kulu-server
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./client:/opt/kuluclient
+      - /opt/kuluclient/node_modules
