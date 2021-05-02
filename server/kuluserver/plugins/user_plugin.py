@@ -13,7 +13,7 @@ class UserPlugin:
                 return callback(*args, **kwargs)
 
             try:
-                session = jwt.decode(enc_session, 'secret')
+                session = jwt.decode(enc_session, 'secret', algorithms=['HS512'])
                 bottle.request.user = self._user_service.get(session['uid'])
             except (jwt.ExpiredSignatureError, jwt.InvalidSignatureError):
                 bottle.abort(401, 'Authentication failed.')

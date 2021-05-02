@@ -12,7 +12,7 @@ def set_session_cookie(email):
         'iss': 'fk-kulu',
         'iat': time.time(),
         'exp': time.time() + 3600,
-    }, 'secret', algorithm='HS512').decode()
+    }, 'secret', algorithm='HS512')
 
     response.set_cookie(
         'session', token, httponly=True, max_age=3600, path='/')
