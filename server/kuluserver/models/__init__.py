@@ -6,7 +6,7 @@ from pony.orm import Database, db_session, perm
 DB = Database()
 
 # pylint: disable=C0413
-from .user import User
+from .users import Users
 from .receipt import Receipt
 from .explanation import Explanation
 from .cost_reimbursement import CostReimbursement

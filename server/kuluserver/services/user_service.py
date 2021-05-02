@@ -3,7 +3,7 @@ import bcrypt
 from bottle import response, abort
 from pony import orm
 import time
-from kuluserver.models import User # pylint: disable=E0401
+from kuluserver.models import Users  # pylint: disable=E0401
 import jwt
 
 def set_session_cookie(email):
@@ -22,20 +22,20 @@ class UserService:
     @orm.db_session
     def get(self, email):
         '''Get single user by email'''
-        return User.get(email=email).dictify()
+        return Users.get(email=email).dictify()
 
     @orm.db_session
     def getAll(self):
         '''Get all users'''
-        return [u.dictify() for u in orm.select(u for u in User)[:]]
+        return [u.dictify() for u in orm.select(u for u in Users)[:]]
 
     @orm.db_session
     def add(self, **kwargs):
-        return User.create(**kwargs)
+        return Users.create(**kwargs)
 
     @orm.db_session
     def login(self, email, password):
-        user = User.get(email=email)
+        user = Users.get(email=email)
 
         if not user or not bcrypt.checkpw(password.encode(), user.password_hash):
             abort(401, 'Authentication failed')
@@ -46,4 +46,4 @@ class UserService:
     @orm.db_session
     def register(self, email, password):
         password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-        return User.create(email=email, password_hash=password_hash).dictify()
+        return Users.create(email=email, password_hash=password_hash).dictify()

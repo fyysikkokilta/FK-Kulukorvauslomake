@@ -2,14 +2,14 @@ from pony import orm
 from . import DB
 
 
-class User(DB.Entity):
+class Users(DB.Entity):
     email = orm.PrimaryKey(str)
     password_hash = orm.Required(bytes)
     groups = orm.Required(str, default="user")
 
     @staticmethod
     def create(**kwargs):
-        return User(**kwargs)
+        return Users(**kwargs)
 
     def dictify(self):
         return {
