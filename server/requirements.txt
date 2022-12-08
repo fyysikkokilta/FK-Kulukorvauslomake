@@ -6,7 +6,7 @@ Automat==0.7.0
 bcrypt==3.1.4
 black==18.9b0
 bottle==0.12.13
-certifi==2018.10.15
+certifi==2022.12.7
 cffi==1.11.5
 chardet==3.0.4
 Click==7.0
